@@ -1,0 +1,27 @@
+{
+  "name": "@resistdesign/jsx-compiler",
+  "version": "0.0.0",
+  "description": "Compile JSX using WebPack without a local WebPack config.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Resist Design",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resistdesign/jsx-compiler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/resistdesign/jsx-compiler/issues"
+  },
+  "homepage": "https://github.com/resistdesign/jsx-compiler#readme",
+  "keywords": [
+    "JSX",
+    "WebPack",
+    "JavaScript",
+    "ES",
+    "ES6",
+    "ECMAScript"
+  ]
+}
