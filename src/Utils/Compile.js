@@ -45,18 +45,27 @@ module.exports = {
               } = {}) => {
     const entry = inputPaths
       .reduce((entryMap, inputPath) => {
-        entryMap[inputPath] = [
+        const relPath = getRelativePath(
+          inputPath,
+          !!base ? getFullTargetPath(base) : undefined
+        );
+        const dirname = Path.dirname(relPath);
+        const extname = Path.extname(relPath);
+        const basename = Path.basename(relPath, extname);
+        const fullPath = Path.join(dirname, basename);
+
+        entryMap[fullPath] = [
           Path.join(Path.dirname(require.resolve('source-map-support')), 'register'),
           inputPath
         ];
+
         return entryMap;
       }, {});
     const externals = getExternals(runtime)
       .concat(NodeBuiltins)
       .reduce((externalsMap, moduleName) => {
-        const relPath = getRelativePath(moduleName, base);
+        externalsMap[moduleName] = moduleName;
 
-        externalsMap[relPath] = moduleName;
         return externalsMap;
       }, {});
     const target = getTarget(runtime);
@@ -68,21 +77,9 @@ module.exports = {
 
       output: {
         path: outputPath,
-        libraryTarget: 'commonjs',
-        libraryExport: !!library ? inputPaths : undefined,
-        publicPath: '/',
-        filename: ({chunk: {name} = {}} = {}) => {
-          const relPath = getRelativePath(
-            name,
-            !!base ? getFullTargetPath(base) : undefined
-          );
-          const dirname = Path.dirname(relPath);
-          const extname = Path.extname(relPath);
-          const basename = Path.basename(relPath, extname);
-          const fullPath = Path.join(dirname, basename);
-
-          return `${fullPath}.js`;
-        }
+        libraryTarget: !!library ? 'commonjs2' : '',
+        libraryExport: !!library ? 'default' : undefined,
+        publicPath: '/'
       },
 
       target,
@@ -91,15 +88,7 @@ module.exports = {
         rules: [
           {
             test: /\.jsx$/,
-            exclude: [
-              /node_modules\/babel-/m,
-              /node_modules\/core-js\//m,
-              /node_modules\/regenerator-runtime\//m,
-              // Windows
-              /node_modules\\babel-/m,
-              /node_modules\\core-js\\/m,
-              /node_modules\\regenerator-runtime\\/m
-            ],
+            exclude: [],
             use: [
               {
                 loader: require.resolve('babel-loader'),
