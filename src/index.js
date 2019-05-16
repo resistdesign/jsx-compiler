@@ -12,7 +12,7 @@ program
   .description(description)
   .command(
     'compile [input] [output]',
-    'Compile the input file or pattern to the output file or directory.',
+    'Compile the input file or pattern to the output directory.',
     {isDefault: true}
   ).alias('c')
   .parse(process.argv);
