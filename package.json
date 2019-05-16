@@ -2,7 +2,11 @@
   "name": "@resistdesign/jsx-compiler",
   "version": "0.0.0",
   "description": "Compile JSX using WebPack without a local WebPack config.",
-  "main": "index.js",
+  "main": "src/index.js",
+  "bin": {
+    "jsx-compiler": "src/index.js",
+    "jsxc": "src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,5 +27,18 @@
     "ES",
     "ES6",
     "ECMAScript"
-  ]
+  ],
+  "dependencies": {
+    "babel-loader": "^8.0.6",
+    "builtin-modules": "^3.1.0",
+    "commander": "^2.20.0",
+    "glob": "^7.1.4",
+    "resistdesign-babel-config": "^3.0.0",
+    "source-map-support": "^0.5.12",
+    "webpack": "^4.31.0"
+  },
+  "devDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6"
+  }
 }
