@@ -4,7 +4,6 @@
   "description": "Compile JSX using WebPack without a local WebPack config.",
   "main": "src/index.js",
   "bin": {
-    "jsx-compiler": "src/index.js",
     "jsxc": "src/index.js"
   },
   "scripts": {

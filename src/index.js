@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
+require('./Utils/Env');
 const program = require('commander');
 const {
   version,
   description
-} = require('./package');
+} = require('../package');
 
 program
   .version(version, '-v, --version')
