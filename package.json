@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Compile JSX using WebPack without a local WebPack config.",
   "main": "src/index.js",
+  "files": [
+    "src/"
+  ],
   "bin": {
     "jsxc": "src/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "rm -rf docs/ && esdoc && cp deploy/CNAME docs/CNAME"
   },
   "author": "Resist Design",
   "license": "MIT",
@@ -37,7 +40,14 @@
     "webpack": "^4.31.0"
   },
   "devDependencies": {
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-jsx-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }

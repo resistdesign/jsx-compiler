@@ -14,6 +14,10 @@ const RUNTIME_LIST = Object
   .keys(RUNTIMES)
   .map(k => RUNTIMES[k]);
 
+/**
+ * The Compile program.
+ * @type {Object}
+ * */
 program
   .option('-r, --runtime', `The runtime to target. Options: ${RUNTIME_LIST.join(', ')}. Default: ${DEFAULT_RUNTIME}.`)
   .option('-l, --library', 'Compile input files as library modules. Default: true.')
