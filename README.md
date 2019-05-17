@@ -1,5 +1,7 @@
 # JSX Compiler
 
+Compile JSX using WebPack without a local WebPack config.
+
 ## Install
 
 `npm i -g @resistdesign/jsx-compiler`
