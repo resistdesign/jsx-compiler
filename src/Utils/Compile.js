@@ -32,9 +32,32 @@ const RUNTIME_EXTERNALS_MAP = {
 const getTarget = (runtime = '') => RUNTIME_TARGET_MAP[runtime] || runtime;
 const getExternals = (runtime = '') => RUNTIME_EXTERNALS_MAP[runtime] || [];
 
+/**
+ * Compile tools.
+ * */
 module.exports = {
+  /**
+   * Runtime options.
+   * @type {Object.<string>}
+   * */
   RUNTIMES,
+  /**
+   * The default runtime.
+   * @type {string}
+   * */
   DEFAULT_RUNTIME,
+  /**
+   * Get the WebPack compiler config.
+   * @param {Object} config The input configuration options.
+   * @param {string[]} config.inputPaths The list of absolute paths to input files.
+   * @param {string} config.outputPath The absolute path to the output directory.
+   * @param {string} config.runtime The runtime files will be run under.
+   * @param {Object.<string>} config.moduleAliases A map of modules to be aliased during compilation.
+   * @param {boolean} config.library A flag designating whether or not to compile as a library as opposed to an app.
+   * Default: `true`
+   * @param {string} config.base The relative path to *remove* from file output paths. Default: `'src'`
+   * @returns {Object} The compiler config.
+   * */
   getConfig: ({
                 inputPaths = [],
                 outputPath = '',

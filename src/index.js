@@ -7,6 +7,10 @@ const {
   description
 } = require('../package');
 
+/**
+ * The main CLI program.
+ * @type {Object}
+ * */
 program
   .version(version, '-v, --version')
   .description(description)
