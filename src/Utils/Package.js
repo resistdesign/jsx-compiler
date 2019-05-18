@@ -7,7 +7,9 @@ const FULL_PACKAGE_PATH = getFullTargetPath(PACKAGE_FILE_NAME);
 const CLI_CONFIG_NAME = 'jsxc';
 
 const getPackage = () => {
-  let packageObject = {};
+  let packageObject = {
+    name: 'JSXLibrary'
+  };
 
   try {
     packageObject = require(FULL_PACKAGE_PATH);

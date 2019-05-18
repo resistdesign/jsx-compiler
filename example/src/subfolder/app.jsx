@@ -1,6 +1,8 @@
 import T from 'prop-types';
 import React, {Component} from 'react';
 
+export const SUB_APP_NAME = 'SubApp';
+
 export default class App extends Component {
   static propTypes = {
     title: T.string

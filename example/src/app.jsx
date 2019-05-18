@@ -1,6 +1,6 @@
 import T from 'prop-types';
 import React, {Component} from 'react';
-import SubApp from './subfolder/app';
+import SubApp, {SUB_APP_NAME} from './subfolder/app';
 
 console.log('Loaded app.');
 
@@ -33,7 +33,7 @@ export default class App extends Component {
           {title}
         </h1>
         <SubApp
-          title={`${title} - SubApp`}
+          title={`${title} - ${SUB_APP_NAME}`}
         />
       </div>
     );
