@@ -19,9 +19,9 @@ const RUNTIME_LIST = Object
  * @type {Object}
  * */
 program
-  .option('-r, --runtime', `The runtime to target. Options: ${RUNTIME_LIST.join(', ')}. Default: ${DEFAULT_RUNTIME}.`)
+  .option('-r, --runtime <option>', `The runtime to target. Options: ${RUNTIME_LIST.join(', ')}. Default: ${DEFAULT_RUNTIME}.`)
   .option('-l, --library', 'Compile input files as library modules. Default: true.')
-  .option('-b, --base', 'The base directory for JSX files. Default: src.')
+  .option('-b, --base <directory>', 'The base directory for JSX files. Default: src.')
   .parse(process.argv);
 
 const {

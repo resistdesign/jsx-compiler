@@ -48,8 +48,13 @@ const RUNTIME_TARGET_MAP = {
 const RUNTIME_EXTERNALS_MAP = {
   [RUNTIMES.AWS_LAMBDA]: ['aws-sdk']
 };
-const getTarget = (runtime = '') => RUNTIME_TARGET_MAP[runtime] || runtime;
-const getExternals = (runtime = '') => RUNTIME_EXTERNALS_MAP[runtime] || [];
+const lowerArg = (fn) => (arg = '') => fn(arg.toLowerCase());
+const getTarget = lowerArg(
+  (runtime = '') => !!RUNTIME_TARGET_MAP[runtime] ? RUNTIME_TARGET_MAP[runtime] : runtime
+);
+const getExternals = lowerArg(
+  (runtime = '') => !!RUNTIME_EXTERNALS_MAP[runtime] ? RUNTIME_EXTERNALS_MAP[runtime] : []
+);
 
 /**
  * Compile tools.
