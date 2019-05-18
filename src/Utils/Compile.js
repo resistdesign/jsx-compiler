@@ -13,6 +13,9 @@ const {
   getRelativePath
 } = require('./Path');
 const WebPack = require('webpack');
+const {
+  getPackage
+} = require('./Package');
 
 const PROCESS = {
   env: {
@@ -77,7 +80,6 @@ module.exports = {
    * @param {string} config.outputPath The absolute path to the output directory.
    * @param {string} config.runtime The runtime files will be run under.
    * @param {Object.<string>} config.moduleAliases A map of modules to be aliased during compilation.
-   * @param {boolean} config.library A flag designating whether or not to compile as a library as opposed to an app.
    * Default: `true`
    * @param {string} config.base The relative path to *remove* from file output paths. Default: `'src'`
    * @returns {Object} The compiler config.
@@ -87,7 +89,6 @@ module.exports = {
                 outputPath = '',
                 runtime = DEFAULT_RUNTIME,
                 moduleAliases = {},
-                library = true,
                 base = 'src'
               } = {}) => {
     const entry = inputPaths
@@ -113,6 +114,9 @@ module.exports = {
         return externalsMap;
       }, {});
     const target = getTarget(runtime);
+    const {
+      name: packageName = ''
+    } = getPackage();
 
     return {
       mode: NODE_ENV === PRODUCTION_NODE_ENV ? PRODUCTION_NODE_ENV : DEVELOPMENT_NODE_ENV,
@@ -121,8 +125,9 @@ module.exports = {
 
       output: {
         path: outputPath,
-        libraryTarget: !!library ? 'commonjs2' : undefined,
-        libraryExport: !!library ? 'default' : undefined,
+        library: [packageName, '[name]'],
+        libraryTarget: 'umd',
+        libraryExport: 'default',
         publicPath: '/'
       },
 

@@ -23,14 +23,12 @@ const RUNTIME_LIST = Object
  * */
 program
   .option('-r, --runtime <option>', `The runtime to target. Options: ${RUNTIME_LIST.join(', ')}. Default: ${DEFAULT_RUNTIME}.`)
-  .option('-l, --library', 'Compile input files as library modules. Default: true.')
   .option('-b, --base <directory>', 'The base directory for JSX files. Default: src.')
   .parse(process.argv);
 
 const {
   base = 'src',
   runtime = DEFAULT_RUNTIME,
-  library = true
 } = getMergedOptions('compile', program);
 const [
   input = `${base}/**/*.jsx`,
@@ -42,7 +40,6 @@ const webPackConfig = getConfig({
     .map(p => getFullTargetPath(p)),
   outputPath: getFullTargetPath(output),
   runtime,
-  library,
   base
 });
 const startInMS = new Date().getTime();
