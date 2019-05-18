@@ -36,7 +36,6 @@
     "commander": "^2.20.0",
     "glob": "^7.1.4",
     "resistdesign-babel-config": "^3.0.0",
-    "source-map-support": "^0.5.12",
     "webpack": "^4.31.0"
   },
   "devDependencies": {

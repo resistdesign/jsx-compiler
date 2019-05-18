@@ -26,9 +26,9 @@ export default class App extends Component {
         onClick={this.funcA}
         onKeyUp={this.funcB}
       >
-        <h1>
+        <h2>
           {title}
-        </h1>
+        </h2>
       </div>
     );
   }

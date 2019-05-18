@@ -2,7 +2,8 @@ const Path = require('path');
 const NodeBuiltins = require('builtin-modules');
 const BabelConfig = require('resistdesign-babel-config');
 const {
-  DEFAULT_NODE_ENV,
+  PRODUCTION_NODE_ENV,
+  DEVELOPMENT_NODE_ENV,
   ENV: {
     NODE_ENV = ''
   } = {}
@@ -11,7 +12,25 @@ const {
   getFullTargetPath,
   getRelativePath
 } = require('./Path');
+const WebPack = require('webpack');
 
+const PROCESS = {
+  env: {
+    NODE_ENV: process.env && process.env.NODE_ENV,
+    DEBUG: process.env && process.env.DEBUG,
+    IS: {
+      [NODE_ENV]: true
+    }
+  }
+};
+const DEFINITIONS = {
+  'process.env.NODE_ENV': JSON.stringify(PROCESS.env.NODE_ENV),
+  'process.env.DEBUG': JSON.stringify(PROCESS.env.DEBUG),
+  [`process.env.IS.${NODE_ENV}`]: JSON.stringify(PROCESS.env.IS[NODE_ENV]),
+  'process.env.IS': JSON.stringify(PROCESS.env.IS),
+  'process.env': JSON.stringify(PROCESS.env),
+  'process': JSON.stringify(PROCESS)
+};
 const RUNTIMES = {
   ASYNC_NODE: 'async-node',
   NODE: 'node',
@@ -77,10 +96,7 @@ module.exports = {
         const basename = Path.basename(relPath, extname);
         const fullPath = Path.join(dirname, basename);
 
-        entryMap[fullPath] = [
-          Path.join(Path.dirname(require.resolve('source-map-support')), 'register'),
-          inputPath
-        ];
+        entryMap[fullPath] = inputPath;
 
         return entryMap;
       }, {});
@@ -94,7 +110,7 @@ module.exports = {
     const target = getTarget(runtime);
 
     return {
-      mode: NODE_ENV === DEFAULT_NODE_ENV ? DEFAULT_NODE_ENV : 'development',
+      mode: NODE_ENV === PRODUCTION_NODE_ENV ? PRODUCTION_NODE_ENV : DEVELOPMENT_NODE_ENV,
       entry,
       externals,
 
@@ -123,8 +139,17 @@ module.exports = {
       },
 
       resolve: {
-        alias: moduleAliases
+        alias: moduleAliases,
+        extensions: ['.js', '.jsx', '.json']
       },
+
+      optimization: {
+        minimize: !!PROCESS.env.IS[PRODUCTION_NODE_ENV]
+      },
+
+      plugins: [
+        new WebPack.DefinePlugin(DEFINITIONS)
+      ],
 
       devtool: 'source-map'
     };

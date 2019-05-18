@@ -1,5 +1,6 @@
 import T from 'prop-types';
 import React, {Component} from 'react';
+import SubApp from './subfolder/app';
 
 export default class App extends Component {
   static propTypes = {
@@ -29,6 +30,9 @@ export default class App extends Component {
         <h1>
           {title}
         </h1>
+        <SubApp
+          title={`${title} - SubApp`}
+        />
       </div>
     );
   }

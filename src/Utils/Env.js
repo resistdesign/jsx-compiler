@@ -1,4 +1,6 @@
-const DEFAULT_NODE_ENV = 'production';
+const PRODUCTION_NODE_ENV = 'production';
+const DEVELOPMENT_NODE_ENV = 'development';
+const DEFAULT_NODE_ENV = PRODUCTION_NODE_ENV;
 
 /**
  * Sets up the `NODE_ENV` upon import.
@@ -15,6 +17,8 @@ module.exports = {
    * @type {string}
    * */
   DEFAULT_NODE_ENV,
+  PRODUCTION_NODE_ENV,
+  DEVELOPMENT_NODE_ENV,
   /**
    * The current process environment object.
    * @type {Object}
