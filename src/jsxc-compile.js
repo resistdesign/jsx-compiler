@@ -9,6 +9,9 @@ const {
 const {getFullTargetPath} = require('./Utils/Path');
 const program = require('commander');
 const WebPack = require('webpack');
+const {
+  getMergedOptions
+} = require('./Utils/Package');
 
 const RUNTIME_LIST = Object
   .keys(RUNTIMES)
@@ -28,7 +31,7 @@ const {
   base = 'src',
   runtime = DEFAULT_RUNTIME,
   library = true
-} = program;
+} = getMergedOptions('compile', program);
 const [
   input = `${base}/**/*.jsx`,
   output = 'dist'
@@ -45,7 +48,7 @@ const webPackConfig = getConfig({
 const startInMS = new Date().getTime();
 
 console.log();
-console.log('Compiling...');
+console.log(`Compiling (${runtime})...`);
 console.log();
 
 WebPack(

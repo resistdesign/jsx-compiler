@@ -121,7 +121,7 @@ module.exports = {
 
       output: {
         path: outputPath,
-        libraryTarget: !!library ? 'commonjs2' : '',
+        libraryTarget: !!library ? 'commonjs2' : undefined,
         libraryExport: !!library ? 'default' : undefined,
         publicPath: '/'
       },
