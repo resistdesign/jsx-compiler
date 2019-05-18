@@ -26,14 +26,17 @@ program
   .option('-b, --base <directory>', 'The base directory for JSX files. Default: src.')
   .parse(process.argv);
 
+const mergedOptions = getMergedOptions('compile', program);
 const {
-  base = 'src',
+  base = 'src'
+} = mergedOptions;
+const {
+  args: [
+    input = `${base}/**/*.jsx`,
+    output = 'dist'
+  ] = [],
   runtime = DEFAULT_RUNTIME,
-} = getMergedOptions('compile', program);
-const [
-  input = `${base}/**/*.jsx`,
-  output = 'dist'
-] = program.args;
+} = mergedOptions;
 const inputPaths = Glob.sync(input) || [];
 const webPackConfig = getConfig({
   inputPaths: inputPaths

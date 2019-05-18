@@ -28,10 +28,22 @@ const getOptions = (command = '') => {
 
   return options;
 };
-const getMergedOptions = (command = '', explicitExistingOptions = {}) => ({
-  ...getOptions(command),
-  ...explicitExistingOptions
-});
+const getMergedOptions = (command = '', explicitExistingOptions = {}) => {
+  const packageOptions = getOptions(command);
+  const {
+    args: packageArgs = []
+  } = packageOptions;
+  const {
+    args: explicitArgs = []
+  } = explicitExistingOptions;
+  const args = explicitArgs.length > 0 ? explicitArgs : packageArgs;
+
+  return {
+    ...packageOptions,
+    ...explicitExistingOptions,
+    args
+  };
+};
 
 module.exports = {
   PACKAGE_FILE_NAME,
