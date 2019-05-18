@@ -2,6 +2,8 @@ import T from 'prop-types';
 import React, {Component} from 'react';
 import SubApp from './subfolder/app';
 
+console.log('Loaded app.');
+
 export default class App extends Component {
   static propTypes = {
     title: T.string

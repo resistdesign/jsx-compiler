@@ -1,0 +1,8 @@
+{
+  "jsxc": {
+    "compile": {
+      "runtime": "WEB",
+      "library": false
+    }
+  }
+}
