@@ -34,8 +34,10 @@
     "babel-loader": "^8.0.6",
     "builtin-modules": "^3.1.0",
     "commander": "^2.20.0",
+    "core-js": "^3.0.1",
     "glob": "^7.1.4",
-    "resistdesign-babel-config": "^3.0.0",
+    "regenerator-runtime": "^0.13.2",
+    "resistdesign-babel-config": "^3.0.1",
     "webpack": "^4.31.0"
   },
   "devDependencies": {
