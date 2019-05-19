@@ -16,6 +16,7 @@ const WebPack = require('webpack');
 const {
   getPackage
 } = require('./Package');
+const PolyFillList = require('./Compile/PolyFillList');
 
 const PROCESS = {
   env: {
@@ -102,7 +103,10 @@ module.exports = {
         const basename = Path.basename(relPath, extname);
         const fullPath = Path.join(dirname, basename);
 
-        entryMap[fullPath] = inputPath;
+        entryMap[fullPath] = [
+          ...PolyFillList,
+          inputPath
+        ];
 
         return entryMap;
       }, {});
