@@ -2,7 +2,7 @@
   {
     "kind": "index",
     "content": "# JSX Compiler\n\nCompile JSX using WebPack without a local WebPack config.\n\n## Install\n\n`npm i -g @resistdesign/jsx-compiler`\n\n## Usage\n\n1. `jsxc`\n1. `jsxc src/app.jsx`\n1. `jsxc src/**/*.jsx dist`\n\nSee: `jsxc -h`\n",
-    "longname": "/Users/ryan/Projects/jsx-compiler/README.md",
+    "longname": "/Users/ryangraff/projects/jsx-compiler/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
