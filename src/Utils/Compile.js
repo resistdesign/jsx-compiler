@@ -27,11 +27,14 @@ const PROCESS = {
     }
   }
 };
-const DEFINITIONS = {
+const BASE_DEFINITIONS = {
   'process.env.NODE_ENV': JSON.stringify(PROCESS.env.NODE_ENV),
   'process.env.DEBUG': JSON.stringify(PROCESS.env.DEBUG),
   [`process.env.IS.${NODE_ENV}`]: JSON.stringify(PROCESS.env.IS[NODE_ENV]),
-  'process.env.IS': JSON.stringify(PROCESS.env.IS),
+  'process.env.IS': JSON.stringify(PROCESS.env.IS)
+};
+const WEB_DEFINITIONS = {
+  ...BASE_DEFINITIONS,
   'process.env': JSON.stringify(PROCESS.env),
   'process': JSON.stringify(PROCESS)
 };
@@ -44,6 +47,10 @@ const RUNTIMES = {
   ELECTRON_RENDERER: 'electron-renderer',
   WEB: 'web',
   WEBWORKER: 'webworker'
+};
+const DEFINITION_USE_MAP = {
+  [RUNTIMES.WEB]: WEB_DEFINITIONS,
+  [RUNTIMES.WEBWORKER]: WEB_DEFINITIONS
 };
 const DEFAULT_RUNTIME = RUNTIMES.NODE;
 const RUNTIME_TARGET_MAP = {
@@ -121,6 +128,8 @@ module.exports = {
     const {
       name: packageName = ''
     } = getPackage();
+    const mappedDefinitions = DEFINITION_USE_MAP[target];
+    const useDefinitions = !!mappedDefinitions ? mappedDefinitions : BASE_DEFINITIONS;
 
     return {
       mode: NODE_ENV === PRODUCTION_NODE_ENV ? PRODUCTION_NODE_ENV : DEVELOPMENT_NODE_ENV,
@@ -162,7 +171,7 @@ module.exports = {
       },
 
       plugins: [
-        new WebPack.DefinePlugin(DEFINITIONS)
+        new WebPack.DefinePlugin(useDefinitions)
       ],
 
       devtool: 'source-map'
