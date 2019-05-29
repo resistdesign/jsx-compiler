@@ -1,6 +1,6 @@
 {
   "name": "@resistdesign/jsx-compiler",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Compile JSX using WebPack without a local WebPack config.",
   "main": "src/index.js",
   "files": [
