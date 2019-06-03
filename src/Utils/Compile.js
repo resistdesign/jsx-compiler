@@ -4,6 +4,7 @@ const BabelConfig = require('resistdesign-babel-config');
 const {
   PRODUCTION_NODE_ENV,
   DEVELOPMENT_NODE_ENV,
+  ENV: PROCESS_ENV,
   ENV: {
     NODE_ENV = ''
   } = {}
@@ -20,6 +21,7 @@ const PolyFillList = require('./Compile/PolyFillList');
 
 const PROCESS = {
   env: {
+    ...PROCESS_ENV,
     NODE_ENV: process.env && process.env.NODE_ENV,
     DEBUG: process.env && process.env.DEBUG,
     IS: {
