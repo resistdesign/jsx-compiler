@@ -92,6 +92,7 @@ module.exports = {
    * @param {Object.<string>} config.moduleAliases A map of modules to be aliased during compilation.
    * Default: `true`
    * @param {string} config.base The relative path to *remove* from file output paths. Default: `'src'`
+   * @param {boolean} config.library Process files as library files that do NOT contain each other.
    * @returns {Object} The compiler config.
    * */
   getConfig: ({
@@ -99,7 +100,8 @@ module.exports = {
                 outputPath = '',
                 runtime = DEFAULT_RUNTIME,
                 moduleAliases = {},
-                base = 'src'
+                base = 'src',
+                library = false
               } = {}) => {
     const entry = inputPaths
       .reduce((entryMap, inputPath) => {
@@ -120,6 +122,7 @@ module.exports = {
         return entryMap;
       }, {});
     const externals = getExternals(runtime)
+      .concat(library ? Object.keys(entry) : [])
       .concat(NodeBuiltins)
       .reduce((externalsMap, moduleName) => {
         externalsMap[moduleName] = moduleName;

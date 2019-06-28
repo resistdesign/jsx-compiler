@@ -24,6 +24,7 @@ const RUNTIME_LIST = Object
 program
   .option('-r, --runtime <option>', `The runtime to target. Options: ${RUNTIME_LIST.join(', ')}. Default: ${DEFAULT_RUNTIME}.`)
   .option('-b, --base <directory>', 'The base directory for JSX files. Default: src.')
+  .option('-l, --library', 'Process files as library files that do NOT contain each other.')
   .parse(process.argv);
 
 const mergedOptions = getMergedOptions('compile', program);
@@ -36,6 +37,7 @@ const {
     output = 'dist'
   ] = [],
   runtime = DEFAULT_RUNTIME,
+  library = false
 } = mergedOptions;
 const inputPaths = Glob.sync(input) || [];
 const webPackConfig = getConfig({
@@ -43,7 +45,8 @@ const webPackConfig = getConfig({
     .map(p => getFullTargetPath(p)),
   outputPath: getFullTargetPath(output),
   runtime,
-  base
+  base,
+  library
 });
 const startInMS = new Date().getTime();
 
