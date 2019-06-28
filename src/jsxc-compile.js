@@ -62,7 +62,7 @@ WebPack(
       console.log();
       console.log(err);
       console.log();
-      console.log(stats.toJson('minimal').errors);
+      console.log(!!stats && stats.toJson('minimal').errors);
       console.log();
     } else {
       const endInMS = new Date().getTime();
