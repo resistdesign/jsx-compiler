@@ -163,7 +163,7 @@ module.exports = {
         filename: '[name].js',
         library: [packageName, '[name]'],
         libraryTarget: 'umd',
-        libraryExport: 'default',
+        libraryExport: library ? undefined : 'default',
         publicPath: '/'
       },
 
