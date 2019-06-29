@@ -103,11 +103,12 @@ module.exports = {
                 base = 'src',
                 library = false
               } = {}) => {
+    const fullBase = !!base ? getFullTargetPath(base) : undefined;
     const entry = inputPaths
       .reduce((entryMap, inputPath) => {
         const relPath = getRelativePath(
           inputPath,
-          !!base ? getFullTargetPath(base) : undefined
+          fullBase
         );
         const dirname = Path.dirname(relPath);
         const extname = Path.extname(relPath);
@@ -122,7 +123,6 @@ module.exports = {
         return entryMap;
       }, {});
     const externals = getExternals(runtime)
-      .concat(library ? Object.keys(entry) : [])
       .concat(NodeBuiltins)
       .reduce((externalsMap, moduleName) => {
         externalsMap[moduleName] = moduleName;
@@ -139,10 +139,28 @@ module.exports = {
     return {
       mode: NODE_ENV === PRODUCTION_NODE_ENV ? PRODUCTION_NODE_ENV : DEVELOPMENT_NODE_ENV,
       entry,
-      externals,
+      externals: [
+        externals,
+        ...(library ? [(context, request, callback) => {
+          if (context === fullBase && request.indexOf('.') === 0) {
+            const newReqName = request.replace(/\.jsx$/, '.js');
 
+            return callback(null, {
+              umd: newReqName,
+              amd: newReqName,
+              commonjs: newReqName,
+              commonjs2: newReqName
+            });
+          }
+
+          callback();
+        }] : [])
+      ],
+
+      context: fullBase,
       output: {
         path: outputPath,
+        filename: '[name].js',
         library: [packageName, '[name]'],
         libraryTarget: 'umd',
         libraryExport: 'default',
