@@ -58,6 +58,14 @@ const DEFAULT_RUNTIME = RUNTIMES.NODE;
 const RUNTIME_TARGET_MAP = {
   [RUNTIMES.AWS_LAMBDA]: 'node'
 };
+const NODE_RUNTIMES = [
+  RUNTIMES.ASYNC_NODE,
+  RUNTIMES.NODE,
+  RUNTIMES.NODE_WEBKIT,
+  RUNTIMES.AWS_LAMBDA,
+  RUNTIMES.ELECTRON_MAIN,
+  RUNTIMES.ELECTRON_RENDERER
+];
 const RUNTIME_EXTERNALS_MAP = {
   [RUNTIMES.AWS_LAMBDA]: ['aws-sdk']
 };
@@ -67,6 +75,9 @@ const getTarget = lowerArg(
 );
 const getExternals = lowerArg(
   (runtime = '') => !!RUNTIME_EXTERNALS_MAP[runtime] ? RUNTIME_EXTERNALS_MAP[runtime] : []
+);
+const runtimeIsNode = lowerArg(
+  (runtime = '') => NODE_RUNTIMES.indexOf(runtime) !== -1
 );
 
 /**
@@ -130,6 +141,10 @@ module.exports = {
         return externalsMap;
       }, {});
     const target = getTarget(runtime);
+    const nodeConfig = runtimeIsNode(runtime) ? {
+      __filename: false,
+      __dirname: false
+    } : undefined;
     const {
       name: packageName = ''
     } = getPackage();
@@ -168,6 +183,7 @@ module.exports = {
       },
 
       target,
+      node: nodeConfig,
 
       module: {
         rules: [
