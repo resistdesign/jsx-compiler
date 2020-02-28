@@ -46,6 +46,7 @@
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-jsx-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
+    "flow-bin": "^0.119.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
   },
