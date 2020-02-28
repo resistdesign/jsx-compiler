@@ -38,7 +38,7 @@
     "core-js": "^3.0.1",
     "glob": "^7.1.4",
     "regenerator-runtime": "^0.13.2",
-    "resistdesign-babel-config": "^3.0.2",
+    "resistdesign-babel-config": "^3.1.0",
     "webpack": "^4.31.0"
   },
   "devDependencies": {
@@ -46,6 +46,7 @@
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-jsx-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
+    "flow-bin": "^0.119.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6"
   },
